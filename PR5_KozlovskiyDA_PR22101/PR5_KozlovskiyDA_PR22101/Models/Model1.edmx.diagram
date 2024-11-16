@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="47e56edc81e9447db9a774914fca4471" Name="Diagram1">
+        <EntityTypeShape EntityType="demonModel.Documents" Width="1.5" PointX="7.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="demonModel.Drinks" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="demonModel.DrinksAndOrders" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="demonModel.Orders" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="demonModel.Payments" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="demonModel.RawMaterials" Width="1.5" PointX="5.25" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="demonModel.RawMaterialsAndDrinks" Width="1.5" PointX="7.5" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="demonModel.Roles" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="demonModel.Statuses" Width="1.5" PointX="3" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="demonModel.sysdiagrams" Width="1.5" PointX="9.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="demonModel.Users" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <AssociationConnector Association="demonModel.FK_Documents_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="demonModel.FK_DrinksAndOrders_Drinks" ManuallyRouted="false" />
+        <AssociationConnector Association="demonModel.FK_RawMaterialsAndDrinks_Drinks" ManuallyRouted="false" />
+        <AssociationConnector Association="demonModel.FK_DrinksAndOrders_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="demonModel.FK_Orders_Payments" ManuallyRouted="false" />
+        <AssociationConnector Association="demonModel.FK_Orders_Statuses" ManuallyRouted="false" />
+        <AssociationConnector Association="demonModel.FK_Orders_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="demonModel.FK_RawMaterialsAndDrinks_RawMaterials" ManuallyRouted="false" />
+        <AssociationConnector Association="demonModel.FK_Users_Roles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

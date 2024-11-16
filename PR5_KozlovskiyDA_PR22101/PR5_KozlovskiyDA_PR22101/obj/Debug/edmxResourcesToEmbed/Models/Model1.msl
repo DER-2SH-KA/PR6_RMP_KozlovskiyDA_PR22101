@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище demonModelContainer" CdmEntityContainer="demonEntities">
+    <EntitySetMapping Name="Documents">
+      <EntityTypeMapping TypeName="demonModel.Documents">
+        <MappingFragment StoreEntitySet="Documents">
+          <ScalarProperty Name="doc_id" ColumnName="doc_id" />
+          <ScalarProperty Name="order_id" ColumnName="order_id" />
+          <ScalarProperty Name="create_datetime" ColumnName="create_datetime" />
+          <ScalarProperty Name="doc_link" ColumnName="doc_link" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Drinks">
+      <EntityTypeMapping TypeName="demonModel.Drinks">
+        <MappingFragment StoreEntitySet="Drinks">
+          <ScalarProperty Name="drink_id" ColumnName="drink_id" />
+          <ScalarProperty Name="drink_name" ColumnName="drink_name" />
+          <ScalarProperty Name="drink_description" ColumnName="drink_description" />
+          <ScalarProperty Name="drink_compoud" ColumnName="drink_compoud" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DrinksAndOrders">
+      <EntityTypeMapping TypeName="demonModel.DrinksAndOrders">
+        <MappingFragment StoreEntitySet="DrinksAndOrders">
+          <ScalarProperty Name="do_id" ColumnName="do_id" />
+          <ScalarProperty Name="drink_id" ColumnName="drink_id" />
+          <ScalarProperty Name="order_id" ColumnName="order_id" />
+          <ScalarProperty Name="drink_count" ColumnName="drink_count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="demonModel.Orders">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="order_id" ColumnName="order_id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="rmd_id" ColumnName="rmd_id" />
+          <ScalarProperty Name="date_start_id" ColumnName="date_start_id" />
+          <ScalarProperty Name="date_end_id" ColumnName="date_end_id" />
+          <ScalarProperty Name="ready" ColumnName="ready" />
+          <ScalarProperty Name="cost" ColumnName="cost" />
+          <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Payments">
+      <EntityTypeMapping TypeName="demonModel.Payments">
+        <MappingFragment StoreEntitySet="Payments">
+          <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+          <ScalarProperty Name="requisites" ColumnName="requisites" />
+          <ScalarProperty Name="pay_cost" ColumnName="pay_cost" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RawMaterials">
+      <EntityTypeMapping TypeName="demonModel.RawMaterials">
+        <MappingFragment StoreEntitySet="RawMaterials">
+          <ScalarProperty Name="rm_id" ColumnName="rm_id" />
+          <ScalarProperty Name="rm_name" ColumnName="rm_name" />
+          <ScalarProperty Name="rm_countKg" ColumnName="rm_countKg" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RawMaterialsAndDrinks">
+      <EntityTypeMapping TypeName="demonModel.RawMaterialsAndDrinks">
+        <MappingFragment StoreEntitySet="RawMaterialsAndDrinks">
+          <ScalarProperty Name="rmd_id" ColumnName="rmd_id" />
+          <ScalarProperty Name="rm_id" ColumnName="rm_id" />
+          <ScalarProperty Name="drink_id" ColumnName="drink_id" />
+          <ScalarProperty Name="rm_mass" ColumnName="rm_mass" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="demonModel.Roles">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="role_id" ColumnName="role_id" />
+          <ScalarProperty Name="role_name" ColumnName="role_name" />
+          <ScalarProperty Name="role_tree" ColumnName="role_tree" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Statuses">
+      <EntityTypeMapping TypeName="demonModel.Statuses">
+        <MappingFragment StoreEntitySet="Statuses">
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="status_name" ColumnName="status_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="demonModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="demonModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="user_login" ColumnName="user_login" />
+          <ScalarProperty Name="user_email" ColumnName="user_email" />
+          <ScalarProperty Name="user_password" ColumnName="user_password" />
+          <ScalarProperty Name="role_id" ColumnName="role_id" />
+          <ScalarProperty Name="sname" ColumnName="sname" />
+          <ScalarProperty Name="fname" ColumnName="fname" />
+          <ScalarProperty Name="tname" ColumnName="tname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

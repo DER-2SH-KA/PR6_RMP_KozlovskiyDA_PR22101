@@ -1,0 +1,13 @@
+C:\MYDESKTOP\Documents\CSharp\PR5_KozlovskiyDA_PR22101\PR5_KozlovskiyDA_PR22101\bin\Debug\PR5_KozlovskiyDA_PR22101.exe.config
+C:\MYDESKTOP\Documents\CSharp\PR5_KozlovskiyDA_PR22101\PR5_KozlovskiyDA_PR22101\bin\Debug\PR5_KozlovskiyDA_PR22101.exe
+C:\MYDESKTOP\Documents\CSharp\PR5_KozlovskiyDA_PR22101\PR5_KozlovskiyDA_PR22101\bin\Debug\PR5_KozlovskiyDA_PR22101.pdb
+C:\MYDESKTOP\Documents\CSharp\PR5_KozlovskiyDA_PR22101\PR5_KozlovskiyDA_PR22101\bin\Debug\HashPasswords.dll
+C:\MYDESKTOP\Documents\CSharp\PR5_KozlovskiyDA_PR22101\PR5_KozlovskiyDA_PR22101\bin\Debug\HashPasswords.pdb
+C:\MYDESKTOP\Documents\CSharp\PR5_KozlovskiyDA_PR22101\PR5_KozlovskiyDA_PR22101\obj\Debug\PR5_KozlovskiyDA_PR22101.csproj.AssemblyReference.cache
+C:\MYDESKTOP\Documents\CSharp\PR5_KozlovskiyDA_PR22101\PR5_KozlovskiyDA_PR22101\obj\Debug\PR5_KozlovskiyDA_PR22101.csproj.CoreCompileInputs.cache
+C:\MYDESKTOP\Documents\CSharp\PR5_KozlovskiyDA_PR22101\PR5_KozlovskiyDA_PR22101\obj\Debug\PR5_Kozl.39674CAC.Up2Date
+C:\MYDESKTOP\Documents\CSharp\PR5_KozlovskiyDA_PR22101\PR5_KozlovskiyDA_PR22101\obj\Debug\PR5_KozlovskiyDA_PR22101.exe
+C:\MYDESKTOP\Documents\CSharp\PR5_KozlovskiyDA_PR22101\PR5_KozlovskiyDA_PR22101\obj\Debug\PR5_KozlovskiyDA_PR22101.pdb
+C:\MYDESKTOP\Documents\CSharp\PR5_KozlovskiyDA_PR22101\PR5_KozlovskiyDA_PR22101\bin\Debug\EntityFramework.dll
+C:\MYDESKTOP\Documents\CSharp\PR5_KozlovskiyDA_PR22101\PR5_KozlovskiyDA_PR22101\bin\Debug\EntityFramework.xml
+C:\MYDESKTOP\Documents\CSharp\PR5_KozlovskiyDA_PR22101\PR5_KozlovskiyDA_PR22101\bin\Debug\ru\EntityFramework.resources.dll

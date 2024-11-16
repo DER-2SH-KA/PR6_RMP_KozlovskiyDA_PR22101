@@ -1,0 +1,694 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище demonModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Documents">
+          <Key>
+            <PropertyRef Name="doc_id" />
+          </Key>
+          <Property Name="doc_id" Type="bigint" Nullable="false" />
+          <Property Name="order_id" Type="bigint" Nullable="false" />
+          <Property Name="create_datetime" Type="datetime" Nullable="false" />
+          <Property Name="doc_link" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Drinks">
+          <Key>
+            <PropertyRef Name="drink_id" />
+          </Key>
+          <Property Name="drink_id" Type="bigint" Nullable="false" />
+          <Property Name="drink_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="drink_description" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="drink_compoud" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DrinksAndOrders">
+          <Key>
+            <PropertyRef Name="do_id" />
+          </Key>
+          <Property Name="do_id" Type="bigint" Nullable="false" />
+          <Property Name="drink_id" Type="bigint" Nullable="false" />
+          <Property Name="order_id" Type="bigint" Nullable="false" />
+          <Property Name="drink_count" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="bigint" Nullable="false" />
+          <Property Name="rmd_id" Type="bigint" Nullable="false" />
+          <Property Name="date_start_id" Type="datetime" Nullable="false" />
+          <Property Name="date_end_id" Type="datetime" Nullable="false" />
+          <Property Name="ready" Type="tinyint" Nullable="false" />
+          <Property Name="cost" Type="money" Nullable="false" />
+          <Property Name="payment_id" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="payment_id" />
+          </Key>
+          <Property Name="payment_id" Type="bigint" Nullable="false" />
+          <Property Name="requisites" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="pay_cost" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RawMaterials">
+          <Key>
+            <PropertyRef Name="rm_id" />
+          </Key>
+          <Property Name="rm_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rm_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="rm_countKg" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RawMaterialsAndDrinks">
+          <Key>
+            <PropertyRef Name="rmd_id" />
+          </Key>
+          <Property Name="rmd_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rm_id" Type="bigint" Nullable="false" />
+          <Property Name="drink_id" Type="bigint" Nullable="false" />
+          <Property Name="rm_mass" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role_name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="role_tree" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Statuses">
+          <Key>
+            <PropertyRef Name="status_id" />
+          </Key>
+          <Property Name="status_id" Type="tinyint" Nullable="false" />
+          <Property Name="status_name" Type="varbinary" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_login" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="user_email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="user_password" Type="varchar" MaxLength="62" Nullable="false" />
+          <Property Name="role_id" Type="bigint" Nullable="false" />
+          <Property Name="sname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tname" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Documents_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Documents" Type="Self.Documents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="Documents">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DrinksAndOrders_Drinks">
+          <End Role="Drinks" Type="Self.Drinks" Multiplicity="1" />
+          <End Role="DrinksAndOrders" Type="Self.DrinksAndOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drinks">
+              <PropertyRef Name="drink_id" />
+            </Principal>
+            <Dependent Role="DrinksAndOrders">
+              <PropertyRef Name="drink_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DrinksAndOrders_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="DrinksAndOrders" Type="Self.DrinksAndOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="DrinksAndOrders">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Payments">
+          <End Role="Payments" Type="Self.Payments" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payments">
+              <PropertyRef Name="payment_id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="payment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Statuses">
+          <End Role="Statuses" Type="Self.Statuses" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statuses">
+              <PropertyRef Name="status_id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ready" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RawMaterialsAndDrinks_Drinks">
+          <End Role="Drinks" Type="Self.Drinks" Multiplicity="1" />
+          <End Role="RawMaterialsAndDrinks" Type="Self.RawMaterialsAndDrinks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drinks">
+              <PropertyRef Name="drink_id" />
+            </Principal>
+            <Dependent Role="RawMaterialsAndDrinks">
+              <PropertyRef Name="drink_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RawMaterialsAndDrinks_RawMaterials">
+          <End Role="RawMaterials" Type="Self.RawMaterials" Multiplicity="1" />
+          <End Role="RawMaterialsAndDrinks" Type="Self.RawMaterialsAndDrinks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RawMaterials">
+              <PropertyRef Name="rm_id" />
+            </Principal>
+            <Dependent Role="RawMaterialsAndDrinks">
+              <PropertyRef Name="rm_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище demonModelContainer">
+          <EntitySet Name="Documents" EntityType="Self.Documents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Drinks" EntityType="Self.Drinks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DrinksAndOrders" EntityType="Self.DrinksAndOrders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RawMaterials" EntityType="Self.RawMaterials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RawMaterialsAndDrinks" EntityType="Self.RawMaterialsAndDrinks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Statuses" EntityType="Self.Statuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Documents_Orders" Association="Self.FK_Documents_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Documents" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DrinksAndOrders_Drinks" Association="Self.FK_DrinksAndOrders_Drinks">
+            <End Role="Drinks" EntitySet="Drinks" />
+            <End Role="DrinksAndOrders" EntitySet="DrinksAndOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DrinksAndOrders_Orders" Association="Self.FK_DrinksAndOrders_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="DrinksAndOrders" EntitySet="DrinksAndOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Payments" Association="Self.FK_Orders_Payments">
+            <End Role="Payments" EntitySet="Payments" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Statuses" Association="Self.FK_Orders_Statuses">
+            <End Role="Statuses" EntitySet="Statuses" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RawMaterialsAndDrinks_Drinks" Association="Self.FK_RawMaterialsAndDrinks_Drinks">
+            <End Role="Drinks" EntitySet="Drinks" />
+            <End Role="RawMaterialsAndDrinks" EntitySet="RawMaterialsAndDrinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RawMaterialsAndDrinks_RawMaterials" Association="Self.FK_RawMaterialsAndDrinks_RawMaterials">
+            <End Role="RawMaterials" EntitySet="RawMaterials" />
+            <End Role="RawMaterialsAndDrinks" EntitySet="RawMaterialsAndDrinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="demonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Documents">
+          <Key>
+            <PropertyRef Name="doc_id" />
+          </Key>
+          <Property Name="doc_id" Type="Int64" Nullable="false" />
+          <Property Name="order_id" Type="Int64" Nullable="false" />
+          <Property Name="create_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="doc_link" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Documents_Orders" FromRole="Documents" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Drinks">
+          <Key>
+            <PropertyRef Name="drink_id" />
+          </Key>
+          <Property Name="drink_id" Type="Int64" Nullable="false" />
+          <Property Name="drink_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="drink_description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="drink_compoud" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="DrinksAndOrders" Relationship="Self.FK_DrinksAndOrders_Drinks" FromRole="Drinks" ToRole="DrinksAndOrders" />
+          <NavigationProperty Name="RawMaterialsAndDrinks" Relationship="Self.FK_RawMaterialsAndDrinks_Drinks" FromRole="Drinks" ToRole="RawMaterialsAndDrinks" />
+        </EntityType>
+        <EntityType Name="DrinksAndOrders">
+          <Key>
+            <PropertyRef Name="do_id" />
+          </Key>
+          <Property Name="do_id" Type="Int64" Nullable="false" />
+          <Property Name="drink_id" Type="Int64" Nullable="false" />
+          <Property Name="order_id" Type="Int64" Nullable="false" />
+          <Property Name="drink_count" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Drinks" Relationship="Self.FK_DrinksAndOrders_Drinks" FromRole="DrinksAndOrders" ToRole="Drinks" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_DrinksAndOrders_Orders" FromRole="DrinksAndOrders" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int64" Nullable="false" />
+          <Property Name="rmd_id" Type="Int64" Nullable="false" />
+          <Property Name="date_start_id" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="date_end_id" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ready" Type="Byte" Nullable="false" />
+          <Property Name="cost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="payment_id" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Documents" Relationship="Self.FK_Documents_Orders" FromRole="Orders" ToRole="Documents" />
+          <NavigationProperty Name="DrinksAndOrders" Relationship="Self.FK_DrinksAndOrders_Orders" FromRole="Orders" ToRole="DrinksAndOrders" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK_Orders_Payments" FromRole="Orders" ToRole="Payments" />
+          <NavigationProperty Name="Statuses" Relationship="Self.FK_Orders_Statuses" FromRole="Orders" ToRole="Statuses" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Orders_Users" FromRole="Orders" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="payment_id" />
+          </Key>
+          <Property Name="payment_id" Type="Int64" Nullable="false" />
+          <Property Name="requisites" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pay_cost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Payments" FromRole="Payments" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="RawMaterials">
+          <Key>
+            <PropertyRef Name="rm_id" />
+          </Key>
+          <Property Name="rm_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rm_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rm_countKg" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="RawMaterialsAndDrinks" Relationship="Self.FK_RawMaterialsAndDrinks_RawMaterials" FromRole="RawMaterials" ToRole="RawMaterialsAndDrinks" />
+        </EntityType>
+        <EntityType Name="RawMaterialsAndDrinks">
+          <Key>
+            <PropertyRef Name="rmd_id" />
+          </Key>
+          <Property Name="rmd_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rm_id" Type="Int64" Nullable="false" />
+          <Property Name="drink_id" Type="Int64" Nullable="false" />
+          <Property Name="rm_mass" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Drinks" Relationship="Self.FK_RawMaterialsAndDrinks_Drinks" FromRole="RawMaterialsAndDrinks" ToRole="Drinks" />
+          <NavigationProperty Name="RawMaterials" Relationship="Self.FK_RawMaterialsAndDrinks_RawMaterials" FromRole="RawMaterialsAndDrinks" ToRole="RawMaterials" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="role_tree" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Statuses">
+          <Key>
+            <PropertyRef Name="status_id" />
+          </Key>
+          <Property Name="status_id" Type="Byte" Nullable="false" />
+          <Property Name="status_name" Type="Binary" MaxLength="20" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Statuses" FromRole="Statuses" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_login" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="role_id" Type="Int64" Nullable="false" />
+          <Property Name="sname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Users" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
+        </EntityType>
+        <Association Name="FK_Documents_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Documents" Type="Self.Documents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="Documents">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DrinksAndOrders_Drinks">
+          <End Role="Drinks" Type="Self.Drinks" Multiplicity="1" />
+          <End Role="DrinksAndOrders" Type="Self.DrinksAndOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drinks">
+              <PropertyRef Name="drink_id" />
+            </Principal>
+            <Dependent Role="DrinksAndOrders">
+              <PropertyRef Name="drink_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RawMaterialsAndDrinks_Drinks">
+          <End Role="Drinks" Type="Self.Drinks" Multiplicity="1" />
+          <End Role="RawMaterialsAndDrinks" Type="Self.RawMaterialsAndDrinks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drinks">
+              <PropertyRef Name="drink_id" />
+            </Principal>
+            <Dependent Role="RawMaterialsAndDrinks">
+              <PropertyRef Name="drink_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DrinksAndOrders_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="DrinksAndOrders" Type="Self.DrinksAndOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="DrinksAndOrders">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Payments">
+          <End Role="Payments" Type="Self.Payments" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payments">
+              <PropertyRef Name="payment_id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="payment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Statuses">
+          <End Role="Statuses" Type="Self.Statuses" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statuses">
+              <PropertyRef Name="status_id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ready" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RawMaterialsAndDrinks_RawMaterials">
+          <End Role="RawMaterials" Type="Self.RawMaterials" Multiplicity="1" />
+          <End Role="RawMaterialsAndDrinks" Type="Self.RawMaterialsAndDrinks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RawMaterials">
+              <PropertyRef Name="rm_id" />
+            </Principal>
+            <Dependent Role="RawMaterialsAndDrinks">
+              <PropertyRef Name="rm_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="demonEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Documents" EntityType="Self.Documents" />
+          <EntitySet Name="Drinks" EntityType="Self.Drinks" />
+          <EntitySet Name="DrinksAndOrders" EntityType="Self.DrinksAndOrders" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="Payments" EntityType="Self.Payments" />
+          <EntitySet Name="RawMaterials" EntityType="Self.RawMaterials" />
+          <EntitySet Name="RawMaterialsAndDrinks" EntityType="Self.RawMaterialsAndDrinks" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="Statuses" EntityType="Self.Statuses" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_Documents_Orders" Association="Self.FK_Documents_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Documents" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DrinksAndOrders_Drinks" Association="Self.FK_DrinksAndOrders_Drinks">
+            <End Role="Drinks" EntitySet="Drinks" />
+            <End Role="DrinksAndOrders" EntitySet="DrinksAndOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RawMaterialsAndDrinks_Drinks" Association="Self.FK_RawMaterialsAndDrinks_Drinks">
+            <End Role="Drinks" EntitySet="Drinks" />
+            <End Role="RawMaterialsAndDrinks" EntitySet="RawMaterialsAndDrinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DrinksAndOrders_Orders" Association="Self.FK_DrinksAndOrders_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="DrinksAndOrders" EntitySet="DrinksAndOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Payments" Association="Self.FK_Orders_Payments">
+            <End Role="Payments" EntitySet="Payments" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Statuses" Association="Self.FK_Orders_Statuses">
+            <End Role="Statuses" EntitySet="Statuses" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RawMaterialsAndDrinks_RawMaterials" Association="Self.FK_RawMaterialsAndDrinks_RawMaterials">
+            <End Role="RawMaterials" EntitySet="RawMaterials" />
+            <End Role="RawMaterialsAndDrinks" EntitySet="RawMaterialsAndDrinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище demonModelContainer" CdmEntityContainer="demonEntities">
+          <EntitySetMapping Name="Documents">
+            <EntityTypeMapping TypeName="demonModel.Documents">
+              <MappingFragment StoreEntitySet="Documents">
+                <ScalarProperty Name="doc_id" ColumnName="doc_id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="create_datetime" ColumnName="create_datetime" />
+                <ScalarProperty Name="doc_link" ColumnName="doc_link" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drinks">
+            <EntityTypeMapping TypeName="demonModel.Drinks">
+              <MappingFragment StoreEntitySet="Drinks">
+                <ScalarProperty Name="drink_id" ColumnName="drink_id" />
+                <ScalarProperty Name="drink_name" ColumnName="drink_name" />
+                <ScalarProperty Name="drink_description" ColumnName="drink_description" />
+                <ScalarProperty Name="drink_compoud" ColumnName="drink_compoud" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DrinksAndOrders">
+            <EntityTypeMapping TypeName="demonModel.DrinksAndOrders">
+              <MappingFragment StoreEntitySet="DrinksAndOrders">
+                <ScalarProperty Name="do_id" ColumnName="do_id" />
+                <ScalarProperty Name="drink_id" ColumnName="drink_id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="drink_count" ColumnName="drink_count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="demonModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="rmd_id" ColumnName="rmd_id" />
+                <ScalarProperty Name="date_start_id" ColumnName="date_start_id" />
+                <ScalarProperty Name="date_end_id" ColumnName="date_end_id" />
+                <ScalarProperty Name="ready" ColumnName="ready" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="demonModel.Payments">
+              <MappingFragment StoreEntitySet="Payments">
+                <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+                <ScalarProperty Name="requisites" ColumnName="requisites" />
+                <ScalarProperty Name="pay_cost" ColumnName="pay_cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RawMaterials">
+            <EntityTypeMapping TypeName="demonModel.RawMaterials">
+              <MappingFragment StoreEntitySet="RawMaterials">
+                <ScalarProperty Name="rm_id" ColumnName="rm_id" />
+                <ScalarProperty Name="rm_name" ColumnName="rm_name" />
+                <ScalarProperty Name="rm_countKg" ColumnName="rm_countKg" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RawMaterialsAndDrinks">
+            <EntityTypeMapping TypeName="demonModel.RawMaterialsAndDrinks">
+              <MappingFragment StoreEntitySet="RawMaterialsAndDrinks">
+                <ScalarProperty Name="rmd_id" ColumnName="rmd_id" />
+                <ScalarProperty Name="rm_id" ColumnName="rm_id" />
+                <ScalarProperty Name="drink_id" ColumnName="drink_id" />
+                <ScalarProperty Name="rm_mass" ColumnName="rm_mass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="demonModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+                <ScalarProperty Name="role_tree" ColumnName="role_tree" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Statuses">
+            <EntityTypeMapping TypeName="demonModel.Statuses">
+              <MappingFragment StoreEntitySet="Statuses">
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="status_name" ColumnName="status_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="demonModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="demonModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="user_login" ColumnName="user_login" />
+                <ScalarProperty Name="user_email" ColumnName="user_email" />
+                <ScalarProperty Name="user_password" ColumnName="user_password" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="sname" ColumnName="sname" />
+                <ScalarProperty Name="fname" ColumnName="fname" />
+                <ScalarProperty Name="tname" ColumnName="tname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

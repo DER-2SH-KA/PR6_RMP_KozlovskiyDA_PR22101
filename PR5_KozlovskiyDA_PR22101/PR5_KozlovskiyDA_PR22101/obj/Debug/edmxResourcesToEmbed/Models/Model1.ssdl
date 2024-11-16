@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище demonModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Documents">
+    <Key>
+      <PropertyRef Name="doc_id" />
+    </Key>
+    <Property Name="doc_id" Type="bigint" Nullable="false" />
+    <Property Name="order_id" Type="bigint" Nullable="false" />
+    <Property Name="create_datetime" Type="datetime" Nullable="false" />
+    <Property Name="doc_link" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Drinks">
+    <Key>
+      <PropertyRef Name="drink_id" />
+    </Key>
+    <Property Name="drink_id" Type="bigint" Nullable="false" />
+    <Property Name="drink_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="drink_description" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="drink_compoud" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DrinksAndOrders">
+    <Key>
+      <PropertyRef Name="do_id" />
+    </Key>
+    <Property Name="do_id" Type="bigint" Nullable="false" />
+    <Property Name="drink_id" Type="bigint" Nullable="false" />
+    <Property Name="order_id" Type="bigint" Nullable="false" />
+    <Property Name="drink_count" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="order_id" />
+    </Key>
+    <Property Name="order_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="bigint" Nullable="false" />
+    <Property Name="rmd_id" Type="bigint" Nullable="false" />
+    <Property Name="date_start_id" Type="datetime" Nullable="false" />
+    <Property Name="date_end_id" Type="datetime" Nullable="false" />
+    <Property Name="ready" Type="tinyint" Nullable="false" />
+    <Property Name="cost" Type="money" Nullable="false" />
+    <Property Name="payment_id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Payments">
+    <Key>
+      <PropertyRef Name="payment_id" />
+    </Key>
+    <Property Name="payment_id" Type="bigint" Nullable="false" />
+    <Property Name="requisites" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="pay_cost" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RawMaterials">
+    <Key>
+      <PropertyRef Name="rm_id" />
+    </Key>
+    <Property Name="rm_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="rm_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="rm_countKg" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RawMaterialsAndDrinks">
+    <Key>
+      <PropertyRef Name="rmd_id" />
+    </Key>
+    <Property Name="rmd_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="rm_id" Type="bigint" Nullable="false" />
+    <Property Name="drink_id" Type="bigint" Nullable="false" />
+    <Property Name="rm_mass" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="role_id" />
+    </Key>
+    <Property Name="role_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="role_name" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="role_tree" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Statuses">
+    <Key>
+      <PropertyRef Name="status_id" />
+    </Key>
+    <Property Name="status_id" Type="tinyint" Nullable="false" />
+    <Property Name="status_name" Type="varbinary" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_login" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="user_email" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="user_password" Type="varchar" MaxLength="62" Nullable="false" />
+    <Property Name="role_id" Type="bigint" Nullable="false" />
+    <Property Name="sname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="fname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="tname" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Documents_Orders">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="Documents" Type="Self.Documents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="order_id" />
+      </Principal>
+      <Dependent Role="Documents">
+        <PropertyRef Name="order_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DrinksAndOrders_Drinks">
+    <End Role="Drinks" Type="Self.Drinks" Multiplicity="1" />
+    <End Role="DrinksAndOrders" Type="Self.DrinksAndOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Drinks">
+        <PropertyRef Name="drink_id" />
+      </Principal>
+      <Dependent Role="DrinksAndOrders">
+        <PropertyRef Name="drink_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DrinksAndOrders_Orders">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="DrinksAndOrders" Type="Self.DrinksAndOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="order_id" />
+      </Principal>
+      <Dependent Role="DrinksAndOrders">
+        <PropertyRef Name="order_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Payments">
+    <End Role="Payments" Type="Self.Payments" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Payments">
+        <PropertyRef Name="payment_id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="payment_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Statuses">
+    <End Role="Statuses" Type="Self.Statuses" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Statuses">
+        <PropertyRef Name="status_id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ready" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RawMaterialsAndDrinks_Drinks">
+    <End Role="Drinks" Type="Self.Drinks" Multiplicity="1" />
+    <End Role="RawMaterialsAndDrinks" Type="Self.RawMaterialsAndDrinks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Drinks">
+        <PropertyRef Name="drink_id" />
+      </Principal>
+      <Dependent Role="RawMaterialsAndDrinks">
+        <PropertyRef Name="drink_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RawMaterialsAndDrinks_RawMaterials">
+    <End Role="RawMaterials" Type="Self.RawMaterials" Multiplicity="1" />
+    <End Role="RawMaterialsAndDrinks" Type="Self.RawMaterialsAndDrinks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RawMaterials">
+        <PropertyRef Name="rm_id" />
+      </Principal>
+      <Dependent Role="RawMaterialsAndDrinks">
+        <PropertyRef Name="rm_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Roles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="role_id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="role_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище demonModelContainer">
+    <EntitySet Name="Documents" EntityType="Self.Documents" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Drinks" EntityType="Self.Drinks" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DrinksAndOrders" EntityType="Self.DrinksAndOrders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RawMaterials" EntityType="Self.RawMaterials" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RawMaterialsAndDrinks" EntityType="Self.RawMaterialsAndDrinks" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Statuses" EntityType="Self.Statuses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Documents_Orders" Association="Self.FK_Documents_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Documents" EntitySet="Documents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DrinksAndOrders_Drinks" Association="Self.FK_DrinksAndOrders_Drinks">
+      <End Role="Drinks" EntitySet="Drinks" />
+      <End Role="DrinksAndOrders" EntitySet="DrinksAndOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DrinksAndOrders_Orders" Association="Self.FK_DrinksAndOrders_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="DrinksAndOrders" EntitySet="DrinksAndOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Payments" Association="Self.FK_Orders_Payments">
+      <End Role="Payments" EntitySet="Payments" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Statuses" Association="Self.FK_Orders_Statuses">
+      <End Role="Statuses" EntitySet="Statuses" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RawMaterialsAndDrinks_Drinks" Association="Self.FK_RawMaterialsAndDrinks_Drinks">
+      <End Role="Drinks" EntitySet="Drinks" />
+      <End Role="RawMaterialsAndDrinks" EntitySet="RawMaterialsAndDrinks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RawMaterialsAndDrinks_RawMaterials" Association="Self.FK_RawMaterialsAndDrinks_RawMaterials">
+      <End Role="RawMaterials" EntitySet="RawMaterials" />
+      <End Role="RawMaterialsAndDrinks" EntitySet="RawMaterialsAndDrinks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
